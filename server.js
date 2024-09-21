@@ -9,11 +9,12 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+
+
+const uri = "mongodb+srv://shravaniss2028:zH61Fq4uYwGnYbgd@clusterposifortune.d0pgv.mongodb.net/?retryWrites=true&w=majority&appName=ClusterPosiFortune";
+
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/PosiFortune', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+mongoose.connect(uri, {useUnifiedTopology: true})
     .then(() => console.log("Connected to MongoDB"))
     .catch(err => console.log("Error: ", err));
 // Define the schema
