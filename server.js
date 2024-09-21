@@ -6,7 +6,10 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: 'https://posi-fortune-app.vercel.app', // Your frontend URL
+    credentials: true
+}));
 app.use(bodyParser.json());
 
 
@@ -29,6 +32,8 @@ const User = mongoose.model('User', userSchema);
 
 // API route to save data
 app.post('/api/saveUser', async (req, res) => {
+    console.log(req.headers); // Log headers
+  console.log(req.body); // Log body
   const { name, luckyNumber, message } = req.body;
   const newUser = new User({ name, luckyNumber, message });
   
