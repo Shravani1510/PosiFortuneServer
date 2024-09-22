@@ -2,23 +2,20 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+require('dotenv').config(); // Load .env file
 
 const app = express();
 
 // Middleware
-app.use(cors({
-    origin: 'https://posi-fortune-app.vercel.app', // Your frontend URL
-    credentials: true
-}));
-app.use(bodyParser.json());
+app.use(cors());  // Allow cross-origin requests from your frontend
+app.use(bodyParser.json());  // Parse JSON body from frontend
 
-
-
-const uri = "mongodb+srv://shravaniss2028:zH61Fq4uYwGnYbgd@clusterposifortune.d0pgv.mongodb.net/?retryWrites=true&w=majority&appName=ClusterPosiFortune";
 
 // Connect to MongoDB
-mongoose.connect(uri, {useUnifiedTopology: true})
-    .then(() => console.log("Connected to MongoDB"))
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}) .then(() => console.log("Connected to MongoDB Atlas"))
     .catch(err => console.log("Error: ", err));
 // Define the schema
 const userSchema = new mongoose.Schema({
